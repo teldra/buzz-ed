@@ -1,16 +1,16 @@
 [package]
-name = "buzz"
-version = "1.1.10"
+name = "buzz-ed"
+version = "1.1.11"
 
-description = "A simple system tray application for notifying about unseen e-mail"
+description = "A simple application for notifying about unseen e-mail"
 readme = "README.md"
 
 authors = ["Jon Gjengset <jon@thesquareplanet.com>"]
 
-homepage = "https://github.com/jonhoo/buzz"
-repository = "https://github.com/jonhoo/buzz.git"
+homepage = "https://github.com/teldra/buzz-ed"
+repository = "https://github.com/teldra/buzz-ed.git"
 
-keywords = ["email","cli","systray","notification"]
+keywords = ["email","cli"]
 categories = ["command-line-utilities", "email"]
 
 license = "MIT/Apache-2.0"

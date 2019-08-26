@@ -1,28 +1,21 @@
 # Introduction
 
 Using mutt (or pine), but annoyed that it doesn't give you any
-notifications when you've received new emails? buzz is a simple tray
+notifications when you've received new emails? buzz-ed is a simple
 application that detects new emails on IMAP servers using IDLE (push
-rather than pull). When it detects unseen messages, it shows a OSD style
-notification and changes the tray icon to indicate that you have new
-mail.
+rather than pull). When it detects unseen messages, it shows writes 
+the amount of new messages to a defined file and runs a defined command.
 
 This project is a Rust fork of
 [hasmail](https://github.com/jonhoo/hasmail), which provides basically
 the same features, and is written in Go.
 
-## What does it look like:
-
-![no new e-mail](assets/no-email.png?raw=true)
-![new e-mail](assets/new-email.png?raw=true)
-
-![new e-mail notification](assets/notification.png?raw=true)
 
 # Configuration
 
-buzz looks for a
+buzz-ed looks for a
 [TOML](https://github.com/toml-lang/toml#user-content-example)
-configuration file in `~/.config/buzz.toml` on startup. The
+configuration file in `~/.config/buzz/buzz.toml` on startup. The
 configuration file consists of a number of sections, each corresponding
 to one account:
 
@@ -34,11 +27,20 @@ username = "jon@gmail.com"
 pwcmd = "gnome-keyring-query get gmail_pw"
 ```
 
+## Running buzz-ed
+
+```
+buzz /tmp/mails "pkill -RTMIN+2 i3blocks"
+```
+
+The first argument is the file, where it stores the amount of unread messages.
+The second argument is the script or programm it starts after the amount has changed.
+
+
 ## Account fields
 
 The value in `[]` can be anything (though avoid `.` as it will be parsed
-as a new TOML section), and is shown in the tooltip when new e-mails
-arrive for an account. The options for an account are as follows:
+as a new TOML section). The options for an account are as follows:
 
  - `server`: The address to connect to. MUST currently be SSL/TLS
    enabled.
@@ -46,8 +48,4 @@ arrive for an account. The options for an account are as follows:
  - `username`: Username for authentication.
  - `pwcmd`: Command to execute to get password for authentication.
 
-# TODOs
 
- - [ ] `click` command
- - [ ] hover tooltip
- - [ ] customizeable folder
