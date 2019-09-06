@@ -182,8 +182,8 @@ fn main() {
                             ),
                             username: t["username"].as_str().unwrap().to_owned(),
                             password: password,
-                            command: t["command"].as_str().unwrap().to_owned(),
-                            outfile: t["outfile"].as_str().unwrap().to_owned(),
+                            commands: t["command"].as_str().unwrap().to_owned(),
+                            outfiles: t["outfile"].as_str().unwrap().to_owned(),
                         })
                     }
                 })
@@ -250,17 +250,15 @@ fn main() {
         unseen[i] = num_unseen;
         //let output_path = ::std::env::args().nth(1).unwrap();
         //let commands = ::std::env::args().nth(2).unwrap();
-        let COMMANDER = "command";
-        let OUTFILE = "outfile";
-        let mut file = std::fs::File::create(&OUTFILE).expect("create failed");
+        let COMMANDER = commands.to_string();
+        let OUTFILE = outfiles.to_string();
+        let mut file = std::fs::File::create(OUTFILE).expect("create failed");
         file.write_all(num_unseen.to_string().as_bytes()).expect(
             "write failed",
         );
-        Command::new("sh")
-            .arg("-c")
-            .arg(&COMMANDER)
-            .spawn()
-            .expect("command failed to start");
+        Command::new("sh").arg("-c").arg(COMMANDER).spawn().expect(
+            "command failed to start",
+        );
         // Command::new("pkill")
         //     .arg("-RTMIN+2")
         //     .arg("i3blocks")
