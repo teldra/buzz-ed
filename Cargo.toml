@@ -10,7 +10,7 @@ authors = ["Jon Gjengset <jon@thesquareplanet.com>"]
 homepage = "https://github.com/jonhoo/buzz"
 repository = "https://github.com/jonhoo/buzz.git"
 
-keywords = ["email","cli","systray","notification"]
+keywords = ["email","cli"]
 categories = ["command-line-utilities", "email"]
 
 license = "MIT/Apache-2.0"

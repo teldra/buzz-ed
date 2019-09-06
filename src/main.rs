@@ -24,8 +24,8 @@ struct Account {
     server: (String, u16),
     username: String,
     password: String,
-    command: String,
-    outfile: String,
+    commands: String,
+    outfiles: String,
 }
 
 impl Account {
@@ -49,7 +49,7 @@ impl Account {
     }
 }
 
-struct Connection<T: Read + Write> {
+pub struct Connection<T: Read + Write> {
     account: Account,
     socket: imap::Session<T>,
 }
@@ -182,8 +182,8 @@ fn main() {
                             ),
                             username: t["username"].as_str().unwrap().to_owned(),
                             password: password,
-                            commands: t["command"].as_str().unwrap().to_owned(),
-                            outfiles: t["outfile"].as_str().unwrap().to_owned(),
+                            commands: t["command"].as_str().unwrap().to_string(),
+                            outfiles: t["outfile"].as_str().unwrap().to_string(),
                         })
                     }
                 })
@@ -248,21 +248,16 @@ fn main() {
 
     for (i, num_unseen) in rx {
         unseen[i] = num_unseen;
-        //let output_path = ::std::env::args().nth(1).unwrap();
-        //let commands = ::std::env::args().nth(2).unwrap();
-        let COMMANDER = commands.to_string();
-        let OUTFILE = outfiles.to_string();
-        let mut file = std::fs::File::create(OUTFILE).expect("create failed");
+
+        let mut file = std::fs::File::create(outfiles).expect("create failed");
         file.write_all(num_unseen.to_string().as_bytes()).expect(
             "write failed",
         );
-        Command::new("sh").arg("-c").arg(COMMANDER).spawn().expect(
+        Command::new("sh").arg("-c").arg(commands).spawn().expect(
             "command failed to start",
         );
-        // Command::new("pkill")
-        //     .arg("-RTMIN+2")
-        //     .arg("i3blocks")
-        //     .spawn()
-        //     .expect("pkill command failed to start");
     }
+
+
+
 }
