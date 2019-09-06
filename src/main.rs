@@ -250,8 +250,8 @@ fn main() {
         unseen[i] = num_unseen;
         //let output_path = ::std::env::args().nth(1).unwrap();
         //let commands = ::std::env::args().nth(2).unwrap();
-        pub static COMMANDER: &str = "command";
-        pub static OUTFILE: &str = "outfile";
+        let COMMANDER = "command";
+        let OUTFILE = "outfile";
         let mut file = std::fs::File::create(&OUTFILE).expect("create failed");
         file.write_all(num_unseen.to_string().as_bytes()).expect(
             "write failed",
