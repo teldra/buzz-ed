@@ -82,6 +82,7 @@ impl<T: Read + Write + imap::extensions::idle::SetReadTimeout> Connection<T> {
             }
 
             wait *= 2;
+            println!("waittime: {}", wait);
         }
     }
 
