@@ -242,11 +242,14 @@ fn main() {
         let tx = tx.clone();
         thread::spawn(move || { conn.handle(i, tx); });
     }
-
     for (i, num_unseen) in rx {
         unseen[i] = num_unseen;
         let output_path = ::std::env::args().nth(1).unwrap();
-        let commands = ::std::env::args().nth(2).unwrap();
+        let mut echo_hello = Command::new("sh");
+            echo_hello.arg("-c")
+            .arg("echo hello");
+            let commands = echo_hello.output().expect("failed to execute process");
+        // let commands = ::std::env::args().nth(2).unwrap();
         let mut file = std::fs::File::create(&output_path).expect("create failed");
         file.write_all(num_unseen.to_string().as_bytes()).expect(
             "write failed",
