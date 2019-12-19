@@ -247,12 +247,11 @@ fn main() {
         unseen[i] = num_unseen;
         let output_path = ::std::env::args().nth(1).unwrap();
         let commands = ::std::env::args().nth(2).unwrap();
+        let the_output = Command::new("sh").arg("-c").arg(&commands).output()
+            .ok().expect("Failed to execute.");
         let mut file = std::fs::File::create(&output_path).expect("create failed");
         file.write_all(num_unseen.to_string().as_bytes()).expect(
             "write failed",
-        );
-        Command::new("sh").arg("-c").arg(&commands).spawn().expect(
-            "command failed to start",
         );
     }
 }
